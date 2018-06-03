@@ -15,6 +15,16 @@ class HomeController extends Controller {
     protected $model;
     
     /**
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    public function __construct(bool $loadModel = true) {
+        parent::__construct($loadModel);
+        
+        session_id(UserController::SESSION_ID_USER_SIGN_IN);
+        session_start();
+    }
+    
+    /**
      * Default action for controller.
      * 
      * @param array $parameters

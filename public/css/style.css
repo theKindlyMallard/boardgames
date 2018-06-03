@@ -2,3 +2,27 @@
     Created on : Apr 18, 2018, 6:44:46 PM
     Author     : theKindlyMallard <the.kindly.mallard@gmail.com>
 */
+footer {
+    padding: 0.5rem 0rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+footer a {
+    color: gainsboro;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+main {
+    margin-bottom: 3.5rem;
+    margin-top: .5rem;
+}
+
+#account-info .dropdown-menu {
+    left: unset;
+    right: 0;
+}
