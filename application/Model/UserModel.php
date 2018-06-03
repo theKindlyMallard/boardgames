@@ -12,21 +12,21 @@ class UserModel extends Model {
     /**
      * Provides user to sign in.
      * 
-     * @param array $credencials Data needed to log in.
+     * @param array $credentials Data needed to log in.
      * @return stdClass|null User object from DB or NULL if unable to log in.
      * 
      * @author theKindlyMallard <the.kindly.mallard@gmail.com>
      */
-    public function signIn(array $credencials) {
+    public function signIn(array $credentials) {
         
-        if ($this->validateSighIn($credencials)) {
+        if ($this->validateSighIn($credentials)) {
             
             $pdo = $this->getConnection();
             $sql = 'SELECT * FROM `' . DB_NAME . '`.`user` WHERE `login` = :login AND `password` = :pass';
             $statement = $pdo->prepare($sql);
             $statement->execute([
-                'login' => $credencials[\Controller\UserController::FIELD_LOGIN],
-                'pass' => $credencials[\Controller\UserController::FIELD_PASSWORD],
+                'login' => $credentials[\Controller\UserController::FIELD_LOGIN],
+                'pass' => $credentials[\Controller\UserController::FIELD_PASSWORD],
             ]);
             $result = $statement->fetchAll(\PDO::FETCH_OBJ);
             

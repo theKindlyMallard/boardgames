@@ -1,3 +1,13 @@
+<?php
+//For now there are just errors possible.
+if (!empty($this->messages)) {
+    foreach ($this->messages as $message) {
+        echo '<div class="alert alert-danger" role="alert">';
+        echo $message;
+        echo '</div>';
+    }
+}
+?>
 <form action="" method="POST" id="<?= Controller\UserController::FORM_NAME_SIGN_IN ?>">
     <div class="form-group">
         <label for="<?= Controller\UserController::FIELD_LOGIN ?>">Login</label>

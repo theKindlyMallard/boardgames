@@ -21,6 +21,11 @@ abstract class Controller {
     const SUFFIX_FOR_CONTROLLERS = 'Controller';
     
     /**
+     * @var array Contains messages that should be display in view.<br>
+     */
+    public $messages = [];
+    
+    /**
      * @var string Name of controller without "Controller" suffix and namespaces.
      */
     public $name;

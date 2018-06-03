@@ -139,16 +139,18 @@ class UserController extends Controller {
      */
     private function dealWithSignIn() {
         
-        $credencials = [
+        $credentials = [
             self::FIELD_LOGIN => filter_input(INPUT_POST, self::FIELD_LOGIN),
             self::FIELD_PASSWORD => filter_input(INPUT_POST, self::FIELD_PASSWORD),
         ];
         
-        $result = $this->model->signIn($credencials);
+        $result = $this->model->signIn($credentials);
         
         if (!is_null($result)) {
             $this->storeUserInSession((array)$result);
             header('Location: ' . APPLICATION_URL . $this->name . DS . 'profile');
+        } else {
+            $this->messages[] = 'Niepoprawne dane logowania!';
         }
     }
     
