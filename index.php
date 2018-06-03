@@ -17,6 +17,10 @@ define('DS', DIRECTORY_SEPARATOR);
  */
 define('FILE_PHP', '.php');
 /**
+ * @var string PHTML file extension with dot.
+ */
+define('FILE_PHTML', '.phtml');
+/**
  * @var string Absolute path to root directory.
  */
 define('DIR_ROOT', __DIR__ . DS);

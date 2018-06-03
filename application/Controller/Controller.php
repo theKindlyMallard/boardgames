@@ -21,6 +21,11 @@ abstract class Controller {
     const SUFFIX_FOR_CONTROLLERS = 'Controller';
     
     /**
+     * @var array Contains messages that should be display in view.<br>
+     */
+    public $messages = [];
+    
+    /**
      * @var string Name of controller without "Controller" suffix and namespaces.
      */
     public $name;
@@ -58,7 +63,8 @@ abstract class Controller {
      */
     protected function outputFooter() {
         //Default footer.
-        require DIR_VIEW . 'templates' . DS . 'footer.phtml';
+        $this->outputView('footer', 'templates');
+
     }
     
     /**
@@ -68,6 +74,20 @@ abstract class Controller {
      */
     protected function outputHeader() {
         //Default header.
-        require DIR_VIEW . 'templates' . DS . 'header.phtml';
+        $this->outputView('header', 'templates');
+    }
+    
+    /**
+     * Outputs view file.
+     * 
+     * @param string $name Name of template file to load (without extension).
+     * @param string $dir By default loads from views for this controller directory.
+     *                      Give dir name or names to specified another path in view directory.
+     * 
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    protected function outputView(string $name, string $dir = '') {
+        
+        require DIR_VIEW . (!empty($dir) ? $dir : strtolower($this->name)) . DS . $name . FILE_PHTML;
     }
 }
