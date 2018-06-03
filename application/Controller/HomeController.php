@@ -1,5 +1,7 @@
 <?php
+
 namespace Controller;
+
 /**
  * Home controller.
  * 
@@ -8,7 +10,7 @@ namespace Controller;
 class HomeController extends Controller {
     
     /**
-     * @var HomeController Default model for this controller. 
+     * @var \Model\HomeModel Default model for this controller. 
      */
     protected $model;
     
@@ -19,7 +21,7 @@ class HomeController extends Controller {
      * 
      * @author theKindlyMallard <the.kindly.mallard@gmail.com>
      */
-    public function action_index(array $parameters = array()) {
+    public function action_index(array $parameters = []) {
         $this->outputHeader();
         echo 'HOME';
         $this->outputFooter();

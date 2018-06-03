@@ -50,7 +50,7 @@ abstract class Model {
     /**
      * Getter for PDO database connection;
      * 
-     * @return PDO|null Connection object or null if no connection.
+     * @return \PDO|null Connection object or null if no connection.
      * 
      * @author theKindlyMallard <the.kindly.mallard@gmail.com>
      */
@@ -62,7 +62,7 @@ abstract class Model {
     /**
      * Creates PDO object (connect to database).
      * 
-     * @return PDO|null PDO object if successful connected to database or null otherwise.
+     * @return \PDO|null PDO object if successful connected to database or null otherwise.
      * 
      * @todo Exception handling.
      * 
