@@ -44,6 +44,9 @@ try {
         case 'production':
             require 'master.php';
         break;
+        case 'theKindlyMallard':
+            require 'theKindlyMallard.php';
+        break;
         default:
             $possibleFix = 'Contact administrator.';
             throw new Exception('Cannot continue - invalid environment.');
