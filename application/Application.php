@@ -29,16 +29,17 @@ class Application {
     public function __construct() {
         //Get data from url.
         $this->splitUrl();
+        $controllerName = ucfirst($this->controller) . Controller\Controller::SUFFIX_FOR_CONTROLLERS;
         //Check if such controller exist.
-        if (file_exists(DIR_CONTROLLER . $this->controller . FILE_PHP)) {
+        if (file_exists(DIR_CONTROLLER . $controllerName . FILE_PHP)) {
             //Load this file.
-            require_once DIR_CONTROLLER . $this->controller . FILE_PHP;
-            //Workaround for dynamicly create object from string.
-            $controllerName = ucfirst($this->controller) . Controller::SUFFIX_FOR_CONTROLLERS;
+            require_once DIR_CONTROLLER . $controllerName . FILE_PHP;
+            //Controller name with namespace.
+            $fullControllerName = Controller\Controller::SUFFIX_FOR_CONTROLLERS . DS . $controllerName;
             //Create this controller object.
-            $this->controller = new $controllerName();
+            $this->controller = new $fullControllerName();
             //Create method name from recived action.
-            $actionMethod = Controller::PREFIX_FOR_ACTIONS . $this->action;
+            $actionMethod = Controller\Controller::PREFIX_FOR_ACTIONS . $this->action;
             //Check for method: does such a method exist in the controller?
             if (method_exists($this->controller, $actionMethod)) {
                 //Call the method and pass the arguments to it.
@@ -48,10 +49,8 @@ class Application {
                 $this->controller->action_index();
             }
         } else {
-            //Invalid URL, so simply show home/index
-            require DIR_CONTROLLER . 'home.php';
-            $home = new HomeController(false);
-            $home->action_index();
+            //Invalid URL, so simply show home/index.
+            (new \Controller\HomeController())->action_index();
         }
     }
 
@@ -61,7 +60,7 @@ class Application {
      * @author theKindlyMallard <the.kindly.mallard@gmail.com>
      */
     private function splitUrl() {
-        //Get url from $_URL.
+        
         $url = filter_input(INPUT_GET, 'url');
 
         if (isset($url)) {

@@ -13,7 +13,7 @@ define('DIR_APPLICATION', DIR_ROOT . 'application' . DS);
 /**
  * @var string Absolute path to controllers main directory.
  */
-define('DIR_CONTROLLER', DIR_APPLICATION . 'controller' . DS);
+define('DIR_CONTROLLER', DIR_APPLICATION . 'Controller' . DS);
 /**
  * @var string Absolute path to logs directory.
  */
@@ -21,7 +21,7 @@ define('DIR_LOGS', DIR_APPLICATION . 'logs' . DS);
 /**
  * @var string Absolute path to models main directory.
  */
-define('DIR_MODEL', DIR_APPLICATION . 'model' . DS);
+define('DIR_MODEL', DIR_APPLICATION . 'Model' . DS);
 /**
  * @var string Absolute path to public directory.
  */
@@ -29,7 +29,7 @@ define('DIR_PUBLIC', DIR_ROOT . 'public' . DS);
 /**
  * @var string Absolute path to views main directory.
  */
-define('DIR_VIEW', DIR_APPLICATION . 'view' . DS);
+define('DIR_VIEW', DIR_APPLICATION . 'View' . DS);
 
 try {
     /* Load user configuration. */
