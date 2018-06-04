@@ -128,7 +128,6 @@ class UserController extends Controller {
         if (!is_null(filter_input(INPUT_POST, self::FORM_NAME_SIGN_IN))) {
             $this->dealWithSignIn();
         }
-        
     }
     
     /**
