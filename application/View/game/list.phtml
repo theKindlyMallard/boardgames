@@ -1,0 +1,21 @@
+<h2>Our games</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Check it out</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($games as $game) {
+            echo '<tr>';
+            echo '<th scope="row">' . $game->{Model\GameModel::COLUMN_ID} . '</th>';
+            echo '<td>' . $game->{Model\GameModel::COLUMN_NAME} . '</td>';
+            echo '<td><a href="/game/show/' . $game->{Model\GameModel::COLUMN_ID} . '">show details</a></td>';
+            echo '</tr>';
+        }
+        ?>
+    </tbody>
+</table>

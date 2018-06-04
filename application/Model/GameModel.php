@@ -108,6 +108,32 @@ class GameModel extends Model {
     }
     
     /**
+     * Gets all games from DB.
+     * 
+     * @return null|stdClass|array[stdClass] Returns single object if specified ID given or
+     *              array of objects if no ID given or NULL if no results.
+     * 
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    public function getGames() {
+        
+        $pdo = $this->getConnection();
+        $sql = 'SELECT * FROM `' . DB_NAME . '`.`game`;';
+        
+        $statement = $pdo->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetchAll(\PDO::FETCH_OBJ);
+
+        if (count($result) == 0) {
+            return null;
+        } else if (count($result) == 1) {
+            return array_shift($result);
+        } else {
+            return $result;
+        }
+    }
+    
+    /**
      * Edit game info.
      * 
      * @param array $gameData Game data to save.

@@ -82,8 +82,11 @@ class GameController extends Controller {
      * @author theKindlyMallard <the.kindly.mallard@gmail.com>
      */
     public function action_index(array $parameters = []) {
+        
+        $games = (array)$this->model->getGames();
+        
         $this->outputHeader();
-        $this->outputView('list');
+        require DIR_VIEW . strtolower($this->name) . DS . 'list' . FILE_PHTML;
         $this->outputFooter();
     }
     
