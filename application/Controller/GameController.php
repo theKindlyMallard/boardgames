@@ -125,6 +125,22 @@ class GameController extends Controller {
         $this->outputFooter();
         
     }
+    
+    public function action_show(array $parameters = []) {
+        
+        if (empty($parameters)) {
+            header('Location: ' . APPLICATION_URL . $this->name . DS . 'index');
+        }
+        
+        $gameId = $parameters[0];
+        $game = $this->model->getGameByField(\Model\GameModel::COLUMN_ID, $gameId);
+        $gameType = $this->model->getGameType($game->id);
+        
+        $this->outputHeader();
+        require DIR_VIEW . strtolower($this->name) . DS . 'show' . FILE_PHTML;
+        $this->outputFooter();
+        
+    }
 
     /**
      * Method to check $_POST and call proper actions.
