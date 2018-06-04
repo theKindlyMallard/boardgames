@@ -15,6 +15,10 @@ class GameModel extends Model {
      */
     const COLUMN_DESCRIPTION = 'description';
     /**
+     * @var string Name of column id.
+     */
+    const COLUMN_ID = 'id';
+    /**
      * @var string Name of column image.
      */
     const COLUMN_IMAGE = 'image';
@@ -104,6 +108,41 @@ class GameModel extends Model {
     }
     
     /**
+     * Edit game info.
+     * 
+     * @param array $gameData Game data to save.
+     * @return int|bool Game ID or FALSE on failure.
+     * 
+     * @todo Better validation.
+     * 
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    public function editGame(array $gameData) {
+        
+        if (\Controller\UserController::isLoggedIn()) {
+            $userId = $_SESSION[\Controller\UserController::SESSION_KEY_USER_DATA]['id'];
+        } else {
+            return false;
+        }
+        
+        $gameDataValues = [
+            self::COLUMN_COMPLEXITY => $gameData[\Controller\GameController::FIELD_COMPLEXITY],
+            self::COLUMN_DESCRIPTION => $gameData[\Controller\GameController::FIELD_DESCRIPTION],
+            self::COLUMN_IMAGE => $gameData[\Controller\GameController::FIELD_IMAGE],
+            self::COLUMN_NAME => $gameData[\Controller\GameController::FIELD_NAME],
+            self::COLUMN_PLAYERS_NUMBER => $gameData[\Controller\GameController::FIELD_PLAYERS_NUMBER],
+            self::COLUMN_PLAY_TIME => $gameData[\Controller\GameController::FIELD_PLAY_TIME],
+            self::COLUMN_PUBLISHER => $gameData[\Controller\GameController::FIELD_PUBLISHER],
+            self::COLUMN_SITE_URL => $gameData[\Controller\GameController::FIELD_SITE_URL],
+            self::COLUMN_TYPE => $gameData[\Controller\GameController::FIELD_TYPE],
+            self::COLUMN_USER => $userId,
+            self::COLUMN_ID => $gameData[\Controller\GameController::FIELD_ID],
+        ];
+        
+        return $this->updateGameData($gameDataValues);
+    }
+    
+    /**
      * Saves new game info.
      * 
      * @param array $gameData Game data to save.
@@ -177,5 +216,42 @@ class GameModel extends Model {
             ")";
         
         return $pdo->query($sql) ? $pdo->lastInsertId() : false;
+    }
+    
+    /**
+     * Update game into DB.
+     * 
+     * @param array $gameData Game data to save.
+     * @return int|bool Updated game ID or FALSE on failure.
+     * 
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    private function updateGameData(array $gameData) {
+        
+        $pdo = $this->getConnection();
+        
+        $sql = "UPDATE `" . DB_NAME . "`.`game` " . " SET ";
+        //Add all values to update to query.
+        foreach ($gameData as $columnName => $value) {
+            //Do not save this fields again.
+            if ($columnName == self::COLUMN_ID) {
+                continue;
+            }
+            $sql .= "`$columnName` = '$value', ";
+        }
+        //Remove necessary colon at the and.
+        $sql = substr_replace($sql, '', -2, 1);
+        $sql .= "WHERE `" . self::COLUMN_ID . "` = '" . $gameData[self::COLUMN_ID] . "';";
+        
+        $statement = $pdo->query($sql);
+        
+        if ($statement && $statement->rowCount() > 0) {
+            //Get updated user ID.
+            $game = $this->getGameByField(self::COLUMN_ID, $gameData[self::COLUMN_ID]);
+            return $game->id;
+        }
+        
+        //There were some errors.
+        return false;
     }
 }

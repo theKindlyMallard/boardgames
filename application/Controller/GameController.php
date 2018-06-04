@@ -18,6 +18,10 @@ class GameController extends Controller {
      */
     const FIELD_DESCRIPTION = 'gameDescription';
     /**
+     * @var string Name of form field id.
+     */
+    const FIELD_ID = 'gameId';
+    /**
      * @var string Name of form field image.
      */
     const FIELD_IMAGE = 'gameImage';
@@ -50,6 +54,10 @@ class GameController extends Controller {
      * @var string Name of game add form.
      */
     const FORM_NAME_GAME_ADD = 'gameAdd';
+    /**
+     * @var string Name of edit game form.
+     */
+    const FORM_NAME_GAME_EDIT = 'gameEdit';
     
     /**
      * @var \Model\GameModel Default model for this controller. 
@@ -75,7 +83,7 @@ class GameController extends Controller {
      */
     public function action_index(array $parameters = []) {
         $this->outputHeader();
-        $this->outputView('index');
+        $this->outputView('list');
         $this->outputFooter();
     }
     
@@ -95,6 +103,25 @@ class GameController extends Controller {
         require DIR_VIEW . strtolower($this->name) . DS . 'add' . FILE_PHTML;
         $this->outputFooter();
     }
+    
+    public function action_edit(array $parameters = []) {
+        
+        if (!UserController::isLoggedIn()) {
+            //Not logged in. Redirect login acction.
+            header('Location: ' . APPLICATION_URL . 'user' . DS . 'login');
+        }
+        
+        $this->checkPost();
+        
+        $gameId = $parameters[0];
+        $game = $this->model->getGameByField(\Model\GameModel::COLUMN_ID, $gameId);
+        $gameTypes = (array)$this->model->getGameType();
+        
+        $this->outputHeader();
+        require DIR_VIEW . strtolower($this->name) . DS . 'edit' . FILE_PHTML;
+        $this->outputFooter();
+        
+    }
 
     /**
      * Method to check $_POST and call proper actions.
@@ -105,6 +132,8 @@ class GameController extends Controller {
         
         if (!is_null(filter_input(INPUT_POST, self::FORM_NAME_GAME_ADD))) {
             $this->dealWithAddNewGame();
+        } else if (!is_null(filter_input(INPUT_POST, self::FORM_NAME_GAME_EDIT))) {
+            $this->dealWithEditGame();
         }
     }
     
@@ -135,6 +164,37 @@ class GameController extends Controller {
             $this->messages['ok'] = 'Game saved with ID ' . $result;
         } else {
             $this->messages['error'] = 'Some errors occured. Game not saved.';
+        }
+    }
+    
+    /**
+     * Prepares game data to save, call image uploading.
+     * 
+     * @author theKindlyMallard <the.kindly.mallard@gmail.com>
+     */
+    private function dealWithEditGame() {
+        
+        $imagePathFromRoot = str_replace('\\', '\\\\', str_replace(DIR_ROOT, '', $this->uploadGameImage()));
+        
+        $gameData = [
+            self::FIELD_COMPLEXITY => filter_input(INPUT_POST, self::FIELD_COMPLEXITY),
+            self::FIELD_DESCRIPTION => filter_input(INPUT_POST, self::FIELD_DESCRIPTION),
+            self::FIELD_IMAGE => $imagePathFromRoot,
+            self::FIELD_NAME => filter_input(INPUT_POST, self::FIELD_NAME),
+            self::FIELD_PLAYERS_NUMBER => filter_input(INPUT_POST, self::FIELD_PLAYERS_NUMBER),
+            self::FIELD_PLAY_TIME => filter_input(INPUT_POST, self::FIELD_PLAY_TIME),
+            self::FIELD_PUBLISHER => filter_input(INPUT_POST, self::FIELD_PUBLISHER),
+            self::FIELD_SITE_URL => filter_input(INPUT_POST, self::FIELD_SITE_URL),
+            self::FIELD_TYPE => filter_input(INPUT_POST, self::FIELD_TYPE),
+            self::FIELD_ID => filter_input(INPUT_POST, self::FIELD_ID),
+        ];
+        
+        $result = $this->model->editGame($gameData);
+        
+        if ($result > 0) {
+            $this->messages['ok'] = 'Game with ID ' . $result . ' edited.';
+        } else {
+            $this->messages['error'] = 'Some errors occured. Game not saved (edited).';
         }
     }
     
