@@ -1,0 +1,143 @@
+<?php
+if (!empty($this->messages)) {
+    foreach ($this->messages as $type => $message) {
+        if ($type == 'ok') {
+            $alertType = 'alert-success';
+        } else if ($type == 'error') {
+            $alertType = 'alert-warning';
+        } else {
+            $alertType = 'alert-secondary';
+        }
+        echo '<div class="alert ' . $alertType . '" role="alert">';
+        echo $message;
+        echo '</div>';
+    }
+}
+?>
+<h2>Add new board game to system</h2>
+<hr>
+<form action="" method="POST" enctype="multipart/form-data" 
+      id="<?= Controller\GameController::FORM_NAME_GAME_ADD ?>">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_NAME ?>">
+            Name
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_NAME ?>"
+                   name="<?= Controller\GameController::FIELD_NAME ?>" 
+                   placeholder="name of game">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_PUBLISHER ?>">
+            Publisher
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_PUBLISHER ?>"
+                   name="<?= Controller\GameController::FIELD_PUBLISHER ?>" 
+                   placeholder="publishing house">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_TYPE ?>">
+            Type
+        </label>
+        <div class="col-sm-10">
+            <select class="form-control"  required
+                    id="<?= Controller\GameController::FIELD_TYPE ?>"
+                    name="<?= Controller\GameController::FIELD_TYPE ?>">
+                <option value="">Choose...</option>
+                <?php
+                foreach ($gameTypes as $gameType) {
+                    echo '<option value="' . $gameType->id . '">' . $gameType->name . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_COMPLEXITY ?>">
+            Complexity
+        </label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_COMPLEXITY ?>"
+                   name="<?= Controller\GameController::FIELD_COMPLEXITY ?>" 
+                   placeholder="hard to play?" min="1" max="10">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_PLAYERS_NUMBER ?>">
+            Players number
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_PLAYERS_NUMBER ?>"
+                   name="<?= Controller\GameController::FIELD_PLAYERS_NUMBER ?>" 
+                   placeholder="can be range of players">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_PLAY_TIME ?>">
+            Play time
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_PLAY_TIME ?>"
+                   name="<?= Controller\GameController::FIELD_PLAY_TIME ?>" 
+                   placeholder="min - max">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_DESCRIPTION ?>">
+            Description
+        </label>
+        <div class="col-sm-10">
+            <textarea class="form-control" required
+                      id="<?= Controller\GameController::FIELD_DESCRIPTION ?>"
+                      name="<?= Controller\GameController::FIELD_DESCRIPTION ?>" 
+                      placeholder="few words about game" rows="6"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_SITE_URL ?>">
+            Site URL
+        </label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" required
+                   id="<?= Controller\GameController::FIELD_SITE_URL ?>"
+                   name="<?= Controller\GameController::FIELD_SITE_URL ?>" 
+                   placeholder="link to game webpage">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"
+               for="<?= Controller\GameController::FIELD_IMAGE ?>">
+            Image
+        </label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control"
+                   id="<?= Controller\GameController::FIELD_IMAGE ?>"
+                   name="<?= Controller\GameController::FIELD_IMAGE ?>">
+        </div>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-outline-primary btn-lg float-right"
+                    name="<?= Controller\GameController::FORM_NAME_GAME_ADD ?>">
+                Add new board game
+            </button>
+        </div>
+    </div>
+</form>

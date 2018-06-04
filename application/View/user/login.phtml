@@ -8,23 +8,28 @@ if (!empty($this->messages)) {
     }
 }
 ?>
-<form action="" method="POST" id="<?= Controller\UserController::FORM_NAME_SIGN_IN ?>">
-    <div class="form-group">
-        <label for="<?= Controller\UserController::FIELD_LOGIN ?>">Login</label>
-        <input class="form-control"
-               id="<?= Controller\UserController::FIELD_LOGIN ?>"
-               name="<?= Controller\UserController::FIELD_LOGIN ?>"
-               type="text" placeholder="Enter login" required>
-    </div>
-    <div class="form-group">
-        <label for="<?= Controller\UserController::FIELD_PASSWORD ?>">Password</label>
-        <input class="form-control"
-               id="<?= Controller\UserController::FIELD_PASSWORD ?>"
-               name="<?= Controller\UserController::FIELD_PASSWORD ?>"
-               type="password" placeholder="Password" required>
-    </div>
-    <button type="submit" class="btn btn-primary"
-            name="<?= Controller\UserController::FORM_NAME_SIGN_IN ?>">
-        Sign in
-    </button>
-</form>
+<div class="container col-sm-6">
+    <h2>Welcome, sign in!</h2>
+    <hr>
+    <form action="" method="POST" id="<?= Controller\UserController::FORM_NAME_SIGN_IN ?>">
+        <div class="form-group row">
+            <label for="<?= Controller\UserController::FIELD_LOGIN ?>">Login</label>
+            <input class="form-control"
+                   id="<?= Controller\UserController::FIELD_LOGIN ?>"
+                   name="<?= Controller\UserController::FIELD_LOGIN ?>"
+                   type="text" placeholder="Enter login" required>
+        </div>
+        <div class="form-group row">
+            <label for="<?= Controller\UserController::FIELD_PASSWORD ?>">Password</label>
+            <input class="form-control"
+                   id="<?= Controller\UserController::FIELD_PASSWORD ?>"
+                   name="<?= Controller\UserController::FIELD_PASSWORD ?>"
+                   type="password" placeholder="Password" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-outline-primary btn-lg float-right"
+                name="<?= Controller\UserController::FORM_NAME_SIGN_IN ?>">
+            Sign in
+        </button>
+    </form>
+</div>
