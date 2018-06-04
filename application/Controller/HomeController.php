@@ -51,7 +51,7 @@ class HomeController extends Controller {
      */
     public function action_index(array $parameters = []) {
         $this->outputHeader();
-        echo 'HOME';
+        $this->outputView('index');
         $this->outputFooter();
     }
     
