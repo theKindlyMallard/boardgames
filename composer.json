@@ -1,0 +1,19 @@
+{
+    "name": "vendor/boardgames",
+    "description": "PHP web app with informations about board games.",
+    "authors": [
+        {
+            "name": "theKindlyMallard",
+            "email": "the.kindly.mallard@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "application"
+        }
+    },
+    "optimize-autoloader": true
+}

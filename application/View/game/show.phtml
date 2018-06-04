@@ -1,0 +1,39 @@
+<?php
+if (empty($game->{Model\GameModel::COLUMN_IMAGE})) {
+    $imagePath = '/public/img/game/default.png';
+} else {
+    $imagePath = '/' . $game->{Model\GameModel::COLUMN_IMAGE};
+}
+?>
+<div class="jumbotron">
+    <h1><?= $game->{Model\GameModel::COLUMN_NAME} ?></h1>      
+    <p><?= $game->{Model\GameModel::COLUMN_DESCRIPTION} ?></p>
+</div>
+<div class="card">
+    <img class="card-img-top" src="<?= $imagePath ?>" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title"><?= $game->{Model\GameModel::COLUMN_NAME} ?></h5>
+        <p class="card-text"><?= $game->{Model\GameModel::COLUMN_DESCRIPTION} ?></p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Publisher: </strong><?= $game->{Model\GameModel::COLUMN_PUBLISHER} ?></li>
+        <li class="list-group-item"><strong>Type: </strong><?= $gameType->name ?></li>
+        <li class="list-group-item"><strong>Players number: </strong><?= $game->{Model\GameModel::COLUMN_PLAYERS_NUMBER} ?></li>
+        <li class="list-group-item"><strong>Complexity: </strong><?= $game->{Model\GameModel::COLUMN_COMPLEXITY} ?></li>
+        <li class="list-group-item"><strong>Average play time: </strong><?= $game->{Model\GameModel::COLUMN_PLAY_TIME} ?></li>
+    </ul>
+    <div class="card-body">
+        <a href="<?= $game->{Model\GameModel::COLUMN_SITE_URL} ?>" class="card-link">Board game website</a>
+    </div>
+
+    <?php
+    if (\Controller\UserController::isLoggedIn()) {
+        ?>
+        <div class="card-body">
+            <a href="/game/edit/<?= $game->{Model\GameModel::COLUMN_ID} ?>" 
+               class="btn btn-outline-primary btn-lg float-right">Edit</a>
+        </div>
+        <?php
+        }
+        ?>
+</div>
