@@ -27,6 +27,10 @@ define('DIR_MODEL', DIR_APPLICATION . 'Model' . DS);
  */
 define('DIR_PUBLIC', DIR_ROOT . 'public' . DS);
 /**
+ * @var string Absolute path to directory with uploaded game images.
+ */
+define('DIR_IMAGES_GAMES', DIR_PUBLIC . 'img' . DS . 'game' . DS);
+/**
  * @var string Absolute path to views main directory.
  */
 define('DIR_VIEW', DIR_APPLICATION . 'View' . DS);

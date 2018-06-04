@@ -2,6 +2,13 @@
     Created on : Apr 18, 2018, 6:44:46 PM
     Author     : theKindlyMallard <the.kindly.mallard@gmail.com>
 */
+body.override-sth .btn,
+body.override-sth .form-control,
+body.override-sth .card,
+body.override-sth .card-img-top {
+    border-radius: 0;
+}
+
 footer {
     padding: 0.5rem;
     color: white;

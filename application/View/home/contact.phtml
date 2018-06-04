@@ -14,6 +14,8 @@
         </div>
     </div>
     <div class="col-sm">
+        <h2>Contact form</h2>
+        <hr>
         <form action="" method="POST" id="<?= Controller\HomeController::FORM_NAME_CONTACT ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -39,7 +41,8 @@
                           id="<?= Controller\HomeController::FIELD_MESSAGE ?>" 
                           name="<?= Controller\HomeController::FIELD_MESSAGE ?>" rows="6">So, what's the message?</textarea>
             </div>
-            <button type="submit" class="btn btn-outline-dark btn-lg"
+            <hr>
+            <button type="submit" class="btn btn-outline-dark btn-lg float-right"
                     name="<?= Controller\HomeController::FORM_NAME_CONTACT ?>">
                 Send
             </button>

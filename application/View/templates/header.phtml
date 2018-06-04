@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
-    <body>
+    <body class="override-sth">
         <header class="sticky-top bg-dark">
             <nav class="navbar container navbar-expand-lg navbar-dark bg-dark">
                 <a id="main-navbar-brand" class="navbar-brand" href="#kk">
@@ -25,8 +25,23 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/home">Home</a>
                         </li>
+                        <?php
+                        if (\Controller\UserController::isLoggedIn()) {
+                            $justForUser = '';
+                        } else {
+                            $justForUser = 'disabled';
+                        }
+                        ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/games">Games</a>
+                            <div id="account-info" class="dropdown nav-link">
+                                <span class="dropdown-toggle" id="dropdownMenuGames" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                    Games
+                                </span>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuGames">
+                                    <a class="dropdown-item" href="/game/index">Games list</a>
+                                    <a class="dropdown-item <?= $justForUser ?>" href="/game/add" title="Just for signed in users.">Add new</a>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/home/contactUs">Contact us</a>
@@ -36,10 +51,10 @@
                         ?>
                         <li class="nav-item">
                             <div id="account-info" class="dropdown nav-link">
-                                <span class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <span class="dropdown-toggle" id="dropdownMenuAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                     Account
                                 </span>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuAccount">
                                     <a class="dropdown-item" href="../user/profile">Full Name</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/user/logout">Sign out</a>
